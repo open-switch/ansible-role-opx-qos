@@ -7,7 +7,7 @@ The ansible-role-opx-qos role requires an SSH connection for connectivity to a D
 Installation
 ------------
 
-    ansible-galaxy install open-switch.ansible-role-opx-qos
+    ansible-galaxy install open-switch.opx-qos
 
 Role Variables
 --------------
@@ -21,57 +21,57 @@ Role Variables
 
 | Key        | Type                      | Description                                             |
 |------------|---------------------------|---------------------------------------------------------|
-| ``opx_qos`` | list        | Configures create/delete QOS parameters. See the following opx_qos.*   |
-| ``opx_qos.qos_wred_attr_data``| dict  | Configures the WRED entry                                  |
-| ``opx_qos.qos_wred_attr_data.green-enable``| Integer  | Enable/Disable Green WRED entry. 1 for Enable 0 for Disable. If unspecified, the value is set to *0* by default                                  |
-| ``opx_qos.qos_wred_attr_data.green-min-threshold``| Integer | Minimum threshold in bytes after which packets will be dropped based on the drop probability|
-| ``opx_qos.qos_wred_attr_data.green-max-threshold``| Integer | Maximum threshold in bytes after which packets will be tail dropped|
-| ``opx_qos.qos_wred_attr_data.green-drop-probability``| Integer |Percentage probability with which packets will be dropped when minimum threshold is reached. If unspecified, the value is set to *100* by default|
-| ``opx_qos.qos_wred_attr_data.yellow-enable``| Integer  | Enable/Disable Yellow WRED entry 1 for Enable 0 for Disable. If unspecified, the value is set to *0* by default |
-| ``opx_qos.qos_wred_attr_data.yellow-min-threshold``| Integer | Minimum threshold in bytes after which packets will be dropped based on the drop probability|
-| ``opx_qos.qos_wred_attr_data.yellow-max-threshold``| Integer | Maximum threshold in bytes after which packets will be tail dropped|
-| ``opx_qos.qos_wred_attr_data.yellow-drop-probability``| Integer |Percentage probability with which packets will be dropped when minimum threshold is reached. If unspecified, the value is set to *100* by default|
-| ``opx_qos.qos_wred_attr_data.weight``|Integer | The average queue size depends on the previous average as well as the current size of the queue. The Weight indicates the importance of previous average queue length compared to the current queue size. If unspecified, the value is set to *0* by default |
-| ``opx_qos.qos_wred_attr_data.npu-id-list``| list| list of NPU Id's|
-| ``opx_qos.qos__scheduler``| dict  | Configures the scheduler profile entry|
-| ``opx_qos.qos__scheduler.algorithm``| Integer | The parameter gets the type of scheduling algorithm. 1 for Strict priority, 2 for WDD and 3 for WDRR. If unspecified, the value is set to *3* (WDRR) by default |
-| ``opx_qos.qos__scheduler.weight``| Integer | Scheduling weight |
-| ``opx_qos.qos__scheduler.meter-type``| Integer | The parameter get the meter type. 1 for Packet and 2 for Byte |
-| ``opx_qos.qos__scheduler.min-rate``| long  | Guaranteed bandwidth shape rate [bytes/sec or PPS]|
-| ``opx_qos.qos__scheduler.min-burst``| long  | Guaranteed burst for bandwidth shape rate [Bytes or Packets]|
-| ``opx_qos.qos__scheduler.max-rate``| long  | Maximum bandwidth shape rate [bytes/sec or PPS] |
-| ``opx_qos.qos__scheduler.max-burst``| long  | Maximum burst for bandwidth shape rate [Bytes or Packets] |
-| ``opx_qos.qos_dscp_map_id`` | dict  | Configures attibutes to be set in CPS for dscp map ID entry.                                                                                                                                     |
+| ``opx_qos`` | list        | Configures create/delete QOS parameters (see `opx_qos.*`)   |
+| ``opx_qos.qos_wred_attr_data``| dictionary  | Configures the WRED entry                                  |
+| ``opx_qos.qos_wred_attr_data.green-enable``| integer  | Enables/disables the green WRED entry; 1 for enable and 0 for disable; value is set to 0 by default if disabled |
+| ``opx_qos.qos_wred_attr_data.green-min-threshold``| integer | Minimum threshold in bytes after which packets will be dropped based on the drop probability |
+| ``opx_qos.qos_wred_attr_data.green-max-threshold``| integer | Maximum threshold in bytes after which packets will be tail dropped |
+| ``opx_qos.qos_wred_attr_data.green-drop-probability``| integer |Percentage probability with which packets will be dropped when minimum threshold is reached; value is set to 100 by default if unspecified |
+| ``opx_qos.qos_wred_attr_data.yellow-enable``| integer  | Enables/disables the yellow WRED entry; 1 for enable and 0 for disable; value is set to 0 by default if unspecified |
+| ``opx_qos.qos_wred_attr_data.yellow-min-threshold``| integer | Minimum threshold in bytes after which packets will be dropped based on the drop probability |
+| ``opx_qos.qos_wred_attr_data.yellow-max-threshold``| integer | Maximum threshold in bytes after which packets will be tail dropped |
+| ``opx_qos.qos_wred_attr_data.yellow-drop-probability``| integer | Percentage probability with which packets will be dropped when minimum threshold is reached; value is set to 100 by default if unspecified |
+| ``opx_qos.qos_wred_attr_data.weight``| integer | Average queue size depends on the previous average as well as the current size of the queue; weight indicates the importance of the previous average queue length compared to the current queue size; value is set to 0 by default if unspecified |
+| ``opx_qos.qos_wred_attr_data.npu-id-list``| list| List of NPU Ids |
+| ``opx_qos.qos__scheduler``| dictionary  | Configures the scheduler profile entry |
+| ``opx_qos.qos__scheduler.algorithm``| integer | Parameter gets the type of scheduling algorithm; 1 for strict priority, 2 for WDD, and 3 for WDRR; value is set to 3 (WDRR) by default if unspecified |
+| ``opx_qos.qos__scheduler.weight``| integer | Scheduling weight |
+| ``opx_qos.qos__scheduler.meter-type``| integer | Parameter get the meter type; 1 for packet and 2 for byte |
+| ``opx_qos.qos__scheduler.min-rate``| long  | Guaranteed bandwidth shape rate (bytes/sec or PPS) |
+| ``opx_qos.qos__scheduler.min-burst``| long  | Guaranteed burst for bandwidth shape rate (bytes or packets) |
+| ``opx_qos.qos__scheduler.max-rate``| long  | Maximum bandwidth shape rate (bytes/sec or PPS) |
+| ``opx_qos.qos__scheduler.max-burst``| long  | Maximum burst for bandwidth shape rate (bytes or packets) |
+| ``opx_qos.qos_dscp_map_id`` | dictionary  | Configures attibutes to be set in CPS for DSCP map ID entry |
 | ``opx_qos.qos_dscp_map_id.name``| string| Optional user-provided name for the map |
-| ``opx_qos.qos_dscp_map_entry`` | dict  | Configures attibutes to be set in CPS for dscp map entry.                                                                                                                                     |
-| ``opx_qos.qos_dscp_map_entry.tc``| Integer | Traffic class|
-| ``opx_qos.qos_dscp_map_entry.color`` | Integer | Packet color that given dscp is mapped to |
- | ``opx_qos.qos_dscp_map_entry.dscp``  | Integer | Incoming dscp value |
-| ``opx_qos.qos_tc_map_id`` | dict  | Configures attibutes to be set in CPS for traffic class map ID entry.                                                                                                                              |
+| ``opx_qos.qos_dscp_map_entry`` | dictionary  | Configures attibutes to be set in CPS for DSCP map entry |
+| ``opx_qos.qos_dscp_map_entry.tc``| integer | Traffic class |
+| ``opx_qos.qos_dscp_map_entry.color`` | integer | Packet color that given dscp is mapped to |
+ | ``opx_qos.qos_dscp_map_entry.dscp``  | integer | Incoming DSCP value |
+| ``opx_qos.qos_tc_map_id`` | dictionary  | Configures attibutes to be set in CPS for traffic class map ID entry |
 | ``opx_qos.qos_tc_map_id.name``| string| Optional user-provided name for the map |
-| ``opx_qos.qos_tc_map_entry`` | dict  | Configures attibutes to be set in CPS traffic class map entry.                                                                                                                                  |
-| ``opx_qos.qos_tc_map_entry.tc``| Integer | Traffic class |
-| ``opx_qos.qos_tc_map_entry.color`` | Integer | Packet color |
-| ``opx_qos.qos_tc_map_entry.dscp`` | Integer | egress dscp value for this traffic class and color|
-| ``opx_qos.qos_policer_meter`` | dict  | Configures attibutes to be set in CPS meter entry                                                                                                                                              |
-| ``opx_qos.qos_policer_meter.peak-rate``| long | Peak rate in byte-per-second or packets. Only valid for Two Rate Tri Color Meter |
-| ``opx_qos.qos_policer_meter.type`` | Integer | The parameter get the meter type. 1 for Packet and 2 for Byte |
-| ``opx_qos.qos_policer_meter.mode`` | Integer | The meter mode type. 1 for Single-Rate, 2 for Two-Rate, 3 for Two-Color and 4 for storm control |
-| ``opx_qos.qos_queue_set_data``| dict  | Configures attibutes to be set in CPS for queue entry.                                                                                                                                         |
-| ``opx_qos.qos_queue_set_data.queue-number`` | Integer| locally unique id within a port and a specific queue type |
-| ``opx_qos.qos_queue_set_data.type`` | Integer | 1 for UNICAST Queue 2 for Multicast queue | 
-| ``opx_qos.qos_queue_set_data.port-id`` | Integer | port number|
-| ``opx_qos.qos_queue_set_data.buffer-profile-id``  | Integer | buffer profile ID |
-| ``opx_qos.qos_queue_unset_data``| dict  | Configures attibutes to be unset in CPS for queue entry.                                                                                                                                     |
-| ``opx_qos.qos_queue_unset_data.queue-number`` | Integer| locally unique id within a port and a specific queue type |
-| ``opx_qos.qos_queue_unset_data.type`` | Integer | 1 for Unicast Queue 2 for Multicast queue | 
-| ``opx_qos.qos_queue_unset_data.port-id`` | Integer | port number|
-| ``opx_qos.qos_queue_unset_data.buffer-profile-id``  | Integer | buffer profile ID |
-| ``opx_qos.qos_queue_unset_data.wred``   | Integer | WRED profile ID |
-| ``opx_qos.qos_ing_port``| dict  | Configures attibutes to be set in CPS for port ingress entry.                                                                                                                                        |
-| ``opx_qos.qos_ing_port.port-id`` | Integer | port number|
-| ``opx_qos.qos_egr_port``| dict  | Configures attibutes to be set in CPS for port egress entry.                                                                                                                                        |
-| ``opx_qos.qos_egr_port.port-id`` | Integer | port number|
+| ``opx_qos.qos_tc_map_entry`` | dictionary  | Configures attibutes to be set in CPS traffic class map entry |
+| ``opx_qos.qos_tc_map_entry.tc``| integer | Traffic class |
+| ``opx_qos.qos_tc_map_entry.color`` | integer | Packet color |
+| ``opx_qos.qos_tc_map_entry.dscp`` | integer | Egress DSCP value for this traffic class and color |
+| ``opx_qos.qos_policer_meter`` | dictionary  | Configures attibutes to be set in CPS meter entry |
+| ``opx_qos.qos_policer_meter.peak-rate``| long | Peak rate in byte-per-second or packets; only valid for two-rate tri-color meter |
+| ``opx_qos.qos_policer_meter.type`` | integer | Parameter get the meter type; 1 for packet and 2 for byte |
+| ``opx_qos.qos_policer_meter.mode`` | integer | Meter mode type; 1 for single-rate, 2 for two-rate, 3 for two-color, and 4 for storm control |
+| ``opx_qos.qos_queue_set_data``| dictionary  | Configures attibutes to be set in CPS for queue entry |
+| ``opx_qos.qos_queue_set_data.queue-number`` | integer| Locally unique ID within a port and a specific queue type |
+| ``opx_qos.qos_queue_set_data.type`` | integer | Data type; 1 for UNICAST queue 2 for multicast queue | 
+| ``opx_qos.qos_queue_set_data.port-id`` | integer | Port number |
+| ``opx_qos.qos_queue_set_data.buffer-profile-id``  | integer | Buffer profile ID |
+| ``opx_qos.qos_queue_unset_data``| dictionary  | Configures attibutes to be unset in the CPS for queue entry |
+| ``opx_qos.qos_queue_unset_data.queue-number`` | integer| Locally unique ID within a port and a specific queue type |
+| ``opx_qos.qos_queue_unset_data.type`` | integer | Unset data type; 1 for Unicast queue and 2 for Multicast queue | 
+| ``opx_qos.qos_queue_unset_data.port-id`` | integer | Port number |
+| ``opx_qos.qos_queue_unset_data.buffer-profile-id``  | Integer | Buffer profile ID |
+| ``opx_qos.qos_queue_unset_data.wred``   | integer | WRED profile ID |
+| ``opx_qos.qos_ing_port``| dictionary  | Configures attibutes to be set in the CPS for port ingress entry |
+| ``opx_qos.qos_ing_port.port-id`` | integer | port number |
+| ``opx_qos.qos_egr_port``| dictionary  | Configures attibutes to be set in the CPS for port egress entry |
+| ``opx_qos.qos_egr_port.port-id`` | integer | Port number |
 
 > **NOTE**: Asterisk (\*) denotes the default value if none is specified.
 
@@ -80,12 +80,12 @@ Dependencies
 
 The *ansible-role-opx-qos* role is built on modules included in the core Ansible code. These modules were added in Ansible version 2.4.0.
 
-Example Playbook
+Example playbook
 ----------------
 
 This example uses the *open-switch.ansible-role-opx-qos* role to setup QOS using CPS Generic module. It creates a *hosts* file with the switch details and corresponding variables. The hosts file should define the *ansible_net_os_name* variable "openswitch".
 
-It writes a simple playbook that only references the *ansible-role-opx-qos* role. By including the role, you automatically get access to all of the tasks to configure QOS features.
+It writes a simple playbook that only references the *ansible-role-opx-qos* role. By including the role, you automatically get access to all of the tasks to configure QoS features.
 
 
 **Sample hosts file**
@@ -166,4 +166,4 @@ It writes a simple playbook that only references the *ansible-role-opx-qos* role
 
     ansible-playbook -i hosts leaf.yaml
     
-(c) 2017 Dell EMC
+(c) 2018 Dell EMC
